@@ -3,6 +3,7 @@ from typing import List
 import requests
 import time
 from bs4 import BeautifulSoup
+from app.constant import FILE_PATH, WEBSITE_TO_SCRAP
 
 
 class Scraper:
@@ -14,14 +15,11 @@ class Scraper:
         # Returns a list of dictionaries containing product information
         scraped_data = []
         for page_num in range(1, num_pages + 1):
-            url = f"https://dentalstall.com/shop/page/{page_num}/"
+            url = f"{WEBSITE_TO_SCRAP}/{page_num}/"
             try:
                 response = requests.get(url, proxies=self.proxy)
                 if response.status_code == 200:
                     # Extract product information from the page
-                    # Here you'd implement scraping logic, for simplicity, I'm omitting it.
-                    # Assume scraped_data is a list of dictionaries with product information
-                    # such as {'product_title': '...', 'product_price': ..., 'path_to_image': '...'}
                     soup = BeautifulSoup(response.content, 'html.parser')
                     for index, row in enumerate(soup.select('ul.products.columns-4 li')):
                         try: 
@@ -39,7 +37,7 @@ class Scraper:
 
                             imageResponse = requests.get(image_url)
                             image_data = imageResponse.content
-                            save_path =  '/Users/atuldewangan/Documents/Scrapper/images/' + product_title + '.jpg'
+                            save_path =  FILE_PATH + product_title + '.jpg'
                             with open(save_path, 'wb') as f:
                                 f.write(image_data)
 
@@ -52,7 +50,6 @@ class Scraper:
                 else:
                     print(f"Failed to scrape page {page_num}. Status code: {response.status_code}")
             except Exception as e:
-                # e.with_traceback
                 traceback.print_exc(e)
                 print(f"Failed to scrape page {page_num}. Error: {str(e)}")
             time.sleep(1)  # Adding a delay before making another request (rate limiting)

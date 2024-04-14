@@ -1,5 +1,4 @@
 from fastapi import Depends, FastAPI
-import uvicorn
 from app.routers import scrapper
 from app.dependencies import get_token_header
 

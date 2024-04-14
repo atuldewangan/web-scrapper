@@ -10,5 +10,5 @@ class Database:
         if self.storage_strategy == "json":
             with open("scraped_data.json", "w") as f:
                 json.dump(data, f, indent=4)
-        # Add other storage strategies as needed
+        # Persistent storage can be added here
 

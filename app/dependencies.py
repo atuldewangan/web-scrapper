@@ -1,8 +1,8 @@
 from typing import Annotated
 
 from fastapi import Header, HTTPException
+from app.constant import STATIC_TOKEN
 
-STATIC_TOKEN = "your_static_token_here"
 
 async def get_token_header(x_token: Annotated[str, Header()]):
     if x_token != STATIC_TOKEN:
