@@ -1,6 +1,7 @@
-# Push-Notification
+# Web-Scrapper
 
 ## Problem
+ 
  A scraping tool using Python FastAPI framework to automate the information scraping process from the target website.
 
 ## Instructions 
