@@ -12,14 +12,14 @@
     -   endpoint : `http://127.0.0.1:8000/scrape`
     -   Request Type : POST
     -   Headers : 
-            ```
+          ```
             x-token:SAMPLE_STATIC_TOKEN
-            ```
+          ```
     -   Query Param : 
-            ```
+        ```
             num_pages: number of pages from which we need to scrape the information
             proxy:  proxy string can use for scraping
-            ```   
+        ```   
     -   Response :
      
            ```
