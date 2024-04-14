@@ -3,7 +3,7 @@ from typing import List
 import requests
 import time
 from bs4 import BeautifulSoup
-from app.constant import FILE_PATH, WEBSITE_TO_SCRAP
+from app.constant import FILE_PATH, WEBSITE_TO_SCRAP, RETRY_DELAY
 
 
 class Scraper:
@@ -18,6 +18,10 @@ class Scraper:
             url = f"{WEBSITE_TO_SCRAP}/{page_num}/"
             try:
                 response = requests.get(url, proxies=self.proxy)
+                if response.status_code !=200:
+                    # wait  and retry after 30 seconds
+                    time.sleep(RETRY_DELAY)  # Adding a delay before making another request (rate limiting)
+                    response = requests.get(url, proxies=self.proxy)
                 if response.status_code == 200:
                     # Extract product information from the page
                     soup = BeautifulSoup(response.content, 'html.parser')
